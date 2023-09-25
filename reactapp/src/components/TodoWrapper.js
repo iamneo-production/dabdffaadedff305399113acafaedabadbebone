@@ -8,17 +8,20 @@ export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
-   // Write a Code to add a new task
+    setTodos([
+      ...todos,
+      { id: uuidv4(), task: todo, completed: false, isEditing: false },
+    ]);
   }
 
-  const deleteTodo = (id) => { 
-    // Write a Code to delete a task
-  
-  }
+  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id));
 
   const toggleComplete = (id) => {
-    // Write a Code to toggle task completion
-    
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
   const editTodo = (id) => {
@@ -30,27 +33,28 @@ export const TodoWrapper = () => {
   }
 
   const editTask = (task, id) => {
-   // Write a Code to edit task
-
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
+      )
+    );
   };
 
   return (
     <div className="TodoWrapper">
-      {/* Add a title as Get Things Done ! */}
-      
+      <h1>Get Things Done !</h1>
       <TodoForm addTodo={addTodo} />
       {/* display todos */}
       {todos.map((todo) =>
         todo.isEditing ? (
           <EditTodoForm editTodo={editTask} task={todo} />
         ) : (
-          // Display individual tasks
           <Todo
-            // A unique key for React to efficiently manage the list
-            // The task object representing the specific todo item
-            // Function to delete the todo
-            // Function to toggle edit mode for the todo
-            // Function to toggle completion status of the todo
+            key={todo.id}
+            task={todo}
+            deleteTodo={deleteTodo}
+            editTodo={editTodo}
+            toggleComplete={toggleComplete}
           />
         )
       )}

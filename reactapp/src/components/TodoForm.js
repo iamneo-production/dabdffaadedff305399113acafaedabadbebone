@@ -4,25 +4,19 @@ export const TodoForm = ({addTodo}) => {
     const [value, setValue] = useState('');
 
     const handleSubmit = (e) => {
-      
+      // prevent default action
         e.preventDefault();
         if (value) {
+          // add todo
           addTodo(value);
+          // clear form after submission
           setValue('');
         }
       };
   return (
-
-    {/* Write code here to create a form element that triggers a function when submitted and Use Classname as "TodoForm" */} 
-    // Create an input field
-          // Set the input type to "text"
-          // Connect the input value to the "value" state
-          // Update the "value" state when the input changes
-          // Add the class name as "todo-input"
-          // Provide a placeholder text as "What is the task today?"
-
-    // Create a button for submitting the form and Add the Classname as "todo-btn"
-      // Display the button text as "Add Task"
-   
+    <form onSubmit={handleSubmit} className="TodoForm">
+    <input type="text" value={value} onChange={(e) => setValue(e.target.value)} className="todo-input" placeholder='What is the task today?' />
+    <button type="submit" className='todo-btn'>Add Task</button>
+  </form>
   )
 }

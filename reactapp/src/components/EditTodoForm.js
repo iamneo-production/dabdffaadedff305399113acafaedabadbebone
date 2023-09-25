@@ -4,10 +4,10 @@ export const EditTodoForm = ({editTodo, task}) => {
     const [value, setValue] = useState(task.task);
 
     const handleSubmit = (e) => {
-        // prevent default action
+      // prevent default action
+        e.preventDefault();
         // edit todo
-        {/* Write a Code here */}
-       
+        editTodo(value, task.id);
       };
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
